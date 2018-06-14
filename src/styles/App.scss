@@ -1,0 +1,35 @@
+html,body{
+  background: #222;
+  width:100%;
+  height: 100%;
+}
+.app{
+  width: 100%;
+  height: 100%;
+}
+
+/* stage-start */
+.stage{
+  position: relative;
+  width: 100%;
+  height: 680px;
+}
+.img-sec{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #ddd
+}
+/*stage-end*/
+
+/*controler-statr*/
+.controer-nav{
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  text-align: center;
+}
+/*controler-end*/
