@@ -36,12 +36,19 @@ class AppComponent extends React.Component {
           // {
           //   pos: {
           //     left: '0',
-          //     top: '0'
+          //     top: '0',
           //   }
+          //   rotate: 0 //旋转角度
           // }
         ]
       }
   }
+  /*
+ * 获取 0~30° 之间的一个任意正负值
+ */
+get30DegRandom() {
+  return ((Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30));
+}
   /*
   *重新布局所有图片
   *param centerIndex 指定居中排布哪个图片
@@ -82,7 +89,7 @@ class AppComponent extends React.Component {
           top: this.getRangeRandom(vPosRangeTopY[0], vPosRangeTopY[1]),
           left: this.getRangeRandom(vPosRangeX[0], vPosRangeX[1])
         },
-        // rotate: get30DegRandom(),
+        rotate: this.get30DegRandom(),
         // isCenter: false
       };
     }.bind(this));
@@ -103,7 +110,7 @@ class AppComponent extends React.Component {
           top: this.getRangeRandom(hPosRangeY[0], hPosRangeY[1]),
           left: this.getRangeRandom(hPosRangeLORX[0], hPosRangeLORX[1])
         },
-        // rotate: get30DegRandom(),
+        rotate: this.get30DegRandom(),
         // isCenter: false
       };
 
@@ -141,10 +148,10 @@ class AppComponent extends React.Component {
       halfImgH = Math.ceil(imgH / 2);
 
     // 计算中心图片的位置点
-    // this.Constant.centerPos = {
-    //   left: halfStageW - halfImgW,
-    //   top: halfStageH - halfImgH
-    // };
+    this.Constant.centerPos = {
+      left: halfStageW - halfImgW,
+      top: halfStageH - halfImgH
+    };
 
     // 计算左侧，右侧区域图片排布位置的取值范围
     this.Constant.hPosRange.leftSecX[0] = -halfImgW;
@@ -172,7 +179,8 @@ class AppComponent extends React.Component {
           pos: {
             left: 0,
             top: 0
-          }
+          },
+          rotate: 0
         }
       }
       imgFigures.push(<ImgFigure data={imageData} ref={'imgFigure' +
