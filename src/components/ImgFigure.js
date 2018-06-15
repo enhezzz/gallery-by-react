@@ -1,5 +1,24 @@
 import React from 'react';
 class ImgFigure extends React.Component {
+    constructor(props){
+        super(props);
+        this.handleClick = this.handleClick.bind(this)
+    }
+    /*
+     * imgFigure 的点击处理函数
+     */
+    handleClick(e) {
+
+        if (this.props.arrange.isCenter) {
+          this.props.inverse();
+        //   alert(1)
+        } else {
+          this.props.center();
+        }
+  
+        e.stopPropagation();
+        e.preventDefault();
+      }
     render() {
         var styleObj = {};
         // 如果props属性中指定了这张图片的位置，则使用
@@ -16,12 +35,20 @@ class ImgFigure extends React.Component {
           if (this.props.arrange.isCenter) {
             styleObj.zIndex = 11;
           }
+          var imgFigureClassName = 'img-figure';
+          imgFigureClassName += this.props.arrange.isInverse ? ' is-inverse' : '';
+
         return (
-            <figure className="img-figure" style={styleObj}>
+            <figure className={imgFigureClassName} style={styleObj} onClick={this.handleClick}>
                 <img src={this.props.data.imgUrl}
                     alt={this.props.data.title} />
                 <figcaption>
                     <h2 className="img-title">{this.props.data.title}</h2>
+                    <div className="img-back" onClick={this.handleClick}>
+                      <p>
+                        {this.props.data.desc}
+                      </p>
+                    </div>
                 </figcaption>
             </figure>
         )

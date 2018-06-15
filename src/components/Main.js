@@ -46,9 +46,35 @@ class AppComponent extends React.Component {
   /*
  * 获取 0~30° 之间的一个任意正负值
  */
-get30DegRandom() {
-  return ((Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30));
-}
+  get30DegRandom() {
+    return ((Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30));
+  }
+    /*
+   * 利用arrange函数， 居中对应index的图片
+   * @param index, 需要被居中的图片对应的图片信息数组的index值
+   * @returns {Function}
+   */
+  center(index) {
+    return function () {
+      this.rearrange(index);
+    }.bind(this);
+  }
+   /*
+   * 翻转图片
+   * @param index 传入当前被执行inverse操作的图片对应的图片信息数组的index值
+   * @returns {Function} 这是一个闭包函数, 其内return一个真正待被执行的函数
+   */
+  inverse(index) {
+    return function () {
+      var imgsArrangeArr = this.state.imgsArrangeArr;
+
+      imgsArrangeArr[index].isInverse = !imgsArrangeArr[index].isInverse;
+
+      this.setState({
+        imgsArrangeArr: imgsArrangeArr
+      });
+    }.bind(this);
+  }
   /*
   *重新布局所有图片
   *param centerIndex 指定居中排布哪个图片
@@ -184,7 +210,7 @@ get30DegRandom() {
         }
       }
       imgFigures.push(<ImgFigure data={imageData} ref={'imgFigure' +
-        index} arrange={this.state.imgsArrangeArr[index]}></ImgFigure>)
+        index} arrange={this.state.imgsArrangeArr[index]} inverse={this.inverse(index)} center={this.center(index)}></ImgFigure>)
     })
     return (
       // <div className="index">
